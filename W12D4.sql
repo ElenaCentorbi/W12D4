@@ -170,10 +170,8 @@ from regione;
 
 Select S.IDProd, Sum(OrderQuantity) as QuantitàVenduta
 from Sale as S
-inner join Product as P
-on S.IDProd = P.IDProd
 Group by S.IDProd
-having Sum(OrderQuantity) >= (Select avg(orderquantity) as Media
+having Sum(OrderQuantity) > (Select avg(orderquantity) as Media
 							 from sale
                              where year(orderdate) = (Select max(year(orderdate))
 													  from sale)
