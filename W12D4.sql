@@ -113,7 +113,7 @@ From Sale
 group by SalesOrderNumber
 having count(*) > 1;
 
-Select EnglishName, Sum(SaleSAmount) as fatturato, Year(OrderDate) as anno
+Select S.IDProd, P.EnglishName, Sum(SaleSAmount) as fatturato, Year(OrderDate) as anno
 from Sale as S
 inner join Product as P
 on S.IDProd = P.IDProd
@@ -123,7 +123,7 @@ Select ST.StateName, Sum(SalesAmount) as fatturato, Year(OrderDate)
 From State as ST
 Inner join Sale as SA
 on ST.IDState = SA.IDState
-Group By SA.IDState, Year(OrderDate)
+Group By ST.IDState, Year(OrderDate)
 Order by Year(OrderDate), Sum(SalesAmount) desc;
 
 Select IDProd, EnglishName
@@ -181,7 +181,6 @@ having Sum(OrderQuantity) >= (Select avg(orderquantity) as Media
 
 Select IDProd,
 Case when DATEDIFF(CURDATE(), OrderDate) > 180 then 'True' else 'False' end AS passati_piu_di_180_giorni
-
 From Sale;
 
 Select SalesOrderNumber, OrderDate, EnglishName, CategoryName, StateName, RegionName,
